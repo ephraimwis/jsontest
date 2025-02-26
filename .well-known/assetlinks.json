@@ -4,9 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.example.qmeinstantapp",
-      "sha256_cert_fingerprints": [
-        "98:09:96:D3:B0:C1:5D:29:80:9B:AA:CE:D6:00:7A:C4:80:35:E8:C0:A5:62:BE:C1:DD:97:A0:3C:FE:DC:55:C7"
-      ]
+      "sha256_cert_fingerprints": ["62:3E:5E:FF:7B:B7:7D:18:A9:E2:B0:19:B8:6F:3F:58:26:61:7C:63:41:34:F2:F6:CE:3B:42:AB:DC:C5:36:53"]
     }
   }
 ]
