@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.qmeinstantapp",
+      "sha256_cert_fingerprints": [
+        "98:09:96:D3:B0:C1:5D:29:80:9B:AA:CE:D6:00:7A:C4:80:35:E8:C0:A5:62:BE:C1:DD:97:A0:3C:FE:DC:55:C7"
+      ]
+    }
+  }
+]
