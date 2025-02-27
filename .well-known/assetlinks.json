@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.example.qmeapp",
+      "package_name": "com.example.myapplication",
       "sha256_cert_fingerprints": ["62:3E:5E:FF:7B:B7:7D:18:A9:E2:B0:19:B8:6F:3F:58:26:61:7C:63:41:34:F2:F6:CE:3B:42:AB:DC:C5:36:53"]
     }
   }
