@@ -1,17 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QME Instant App</title>
-  </head>
-  <body>
-    <h1>Welcome to QME Instant App</h1>
-    <p>This is a placeholder page for the QME Instant App GitHub Pages site.</p>
-    <p>
-      <a href="/jsontest/.well-known/assetlinks.json"
-        >View the assetlinks.json file</a
-      >
-    </p>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Deep Links</title>
+    <script>
+        class SocialDeepLink {
+            constructor() {
+                this.socialLinks = {
+                    instagram: {
+                        app: "instagram://user?username=fushshorebro",
+                        web: "https://www.instagram.com/fushshorebro/",
+                    },
+                    youtube: {
+                        app: "vnd.youtube://channel/UC9dGqMAPJRh0Gl23NflFo0A", // Hardcoded YouTube Channel ID
+                        web: "https://www.youtube.com/@hustlegroupmedia",
+                    },
+                    facebook: {
+                        app: "fb://page/100087654321987", // Hardcoded Facebook Page ID
+                        web: "https://www.facebook.com/%40fushshorebro/",
+                    },
+                };
+            }
+
+            isAndroid() {
+                return /android/i.test(navigator.userAgent);
+            }
+
+            isIOS() {
+                return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            }
+
+            isInAppBrowser() {
+                return /FBAN|FBAV|Instagram/.test(navigator.userAgent);
+            }
+
+            openSocialApp(platform) {
+                const now = new Date().getTime();
+                const link = this.socialLinks[platform];
+                if (!link || !link.app) {
+                    console.error("Platform not supported");
+                    return;
+                }
+                let appUrl = link.app;
+                let webUrl = link.web;
+                if (this.isInAppBrowser()) {
+                    window.location.href = webUrl;
+                    return;
+                }
+                window.location.href = appUrl;
+                setTimeout(() => {
+                    if (new Date().getTime() - now < 2000) {
+                        window.location.href = webUrl;
+                    }
+                }, 1500);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const socialDeepLink = new SocialDeepLink();
+            document.getElementById("openInstagram").addEventListener("click", () => {
+                socialDeepLink.openSocialApp("instagram");
+            });
+            document.getElementById("openYouTube").addEventListener("click", () => {
+                socialDeepLink.openSocialApp("youtube");
+            });
+            document.getElementById("openFacebook").addEventListener("click", () => {
+                socialDeepLink.openSocialApp("facebook");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Open Social Media Apps</h1>
+    <button id="openInstagram">Open Instagram</button>
+    <button id="openYouTube">Open YouTube</button>
+    <button id="openFacebook">Open Facebook</button>
+</body>
 </html>
