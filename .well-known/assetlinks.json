@@ -1,11 +1,26 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.qme.instantapp",
-      "sha256_cert_fingerprints":
-        ["7C:AC:52:3B:4B:86:2C:5D:59:FB:07:3C:12:1F:DA:3D:34:B0:01:A3:8B:A0:9B:83:97:C5:BB:1B:8A:DE:3D:E8"]
+      "sha256_cert_fingerprints": [
+        "7C:AC:52:3B:4B:86:2C:5D:59:FB:07:3C:12:1F:DA:3D:34:B0:01:A3:8B:A0:9B:83:97:C5:BB:1B:8A:DE:3D:E8"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "uninitialized.application.id",
+      "sha256_cert_fingerprints": [
+        "3B:02:BF:51:96:E1:A7:54:B5:BC:55:5A:87:F5:61:CC:B1:92:93:43:CB:FC:4E:3B:1D:3C:50:04:D0:AA:4D:5A"
+      ]
     }
   }
 ]
