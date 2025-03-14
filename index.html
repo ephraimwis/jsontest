@@ -12,13 +12,9 @@
                         app: "instagram://user?username=fushshorebro",
                         web: "https://www.instagram.com/fushshorebro/",
                     },
-                    youtube: {
-                        app: "vnd.youtube://channel/UClKL7cR-7uaidL9k4HFb0vA",
-                        web: "https://www.youtube.com/@hustlegroupmedia",
-                    },
                     facebook: {
-                        app: "fb://profile/100064816895509", // Updated to use profile ID
-                        web: "https://www.facebook.com/%40fushshorebro/",
+                        app: "fb://profile/100064816895509",
+                        web: "https://www.facebook.com/@fushshorebro/", // Removed %40 since it’s not needed here
                     },
                 };
             }
@@ -36,26 +32,49 @@
             }
 
             openSocialApp(platform) {
-                const now = new Date().getTime();
                 const link = this.socialLinks[platform];
                 if (!link || !link.app) {
                     console.error("Platform not supported");
                     return;
                 }
-                let appUrl = link.app;
-                let webUrl = link.web;
+
+                const appUrl = link.app;
+                const webUrl = link.web;
+
+                // If in an in-app browser, open web URL in a new tab and skip app attempt
                 if (this.isInAppBrowser()) {
-                    window.location.href = webUrl;
+                    console.log(`In-app browser detected, opening ${webUrl} in new tab`);
+                    window.open(webUrl, "_blank");
                     return;
                 }
-                console.log(`Attempting ${platform} app: ${appUrl}`);
+
+                // Attempt to open the app
+                console.log(`Attempting to open ${platform} app: ${appUrl}`);
                 window.location.href = appUrl;
-                setTimeout(() => {
-                    if (new Date().getTime() - now < 2000) {
-                        console.log(`Falling back to ${webUrl}`);
-                        window.location.href = webUrl;
+
+                // Use a combination of blur/focus to detect if the app opened
+                let appOpened = false;
+                const onBlur = () => {
+                    appOpened = true; // Assume app opened when window loses focus
+                    console.log(`${platform} app likely opened`);
+                };
+                const onFocus = () => {
+                    if (!appOpened) {
+                        console.log(`App didn't open, opening ${webUrl} in new tab`);
+                        window.open(webUrl, "_blank");
                     }
-                }, 1500);
+                };
+
+                window.addEventListener("blur", onBlur, { once: true });
+                window.addEventListener("focus", onFocus, { once: true });
+
+                // Fallback after 2 seconds if no blur/focus events occur
+                setTimeout(() => {
+                    if (!appOpened) {
+                        console.log(`Timeout: No app detected, opening ${webUrl} in new tab`);
+                        window.open(webUrl, "_blank");
+                    }
+                }, 2000); // Increased to 2000ms for more reliable app detection
             }
         }
 
@@ -63,9 +82,6 @@
             const socialDeepLink = new SocialDeepLink();
             document.getElementById("openInstagram").addEventListener("click", () => {
                 socialDeepLink.openSocialApp("instagram");
-            });
-            document.getElementById("openYouTube").addEventListener("click", () => {
-                socialDeepLink.openSocialApp("youtube");
             });
             document.getElementById("openFacebook").addEventListener("click", () => {
                 socialDeepLink.openSocialApp("facebook");
@@ -76,7 +92,6 @@
 <body>
     <h1>Open Social Media Apps</h1>
     <button id="openInstagram">Open Instagram</button>
-    <button id="openYouTube">Open YouTube</button>
     <button id="openFacebook">Open Facebook</button>
 </body>
 </html>
