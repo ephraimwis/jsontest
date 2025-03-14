@@ -13,11 +13,11 @@
                         web: "https://www.instagram.com/fushshorebro/",
                     },
                     youtube: {
-                        app: "vnd.youtube://channel/UClKL7cR-7uaidL9k4HFb0vA", // Hardcoded YouTube Channel ID
+                        app: "vnd.youtube://channel/UClKL7cR-7uaidL9k4HFb0vA",
                         web: "https://www.youtube.com/@hustlegroupmedia",
                     },
                     facebook: {
-                        app: "fb://facewebmodal/f?href=https://www.facebook.com/%40fushshorebro/", // Updated deep link
+                        app: "fb://profile/100064816895509", // Updated to use profile ID
                         web: "https://www.facebook.com/%40fushshorebro/",
                     },
                 };
@@ -48,9 +48,11 @@
                     window.location.href = webUrl;
                     return;
                 }
+                console.log(`Attempting ${platform} app: ${appUrl}`);
                 window.location.href = appUrl;
                 setTimeout(() => {
                     if (new Date().getTime() - now < 2000) {
+                        console.log(`Falling back to ${webUrl}`);
                         window.location.href = webUrl;
                     }
                 }, 1500);
